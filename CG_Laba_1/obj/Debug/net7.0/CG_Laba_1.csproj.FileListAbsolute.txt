@@ -1,0 +1,15 @@
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\obj\Debug\net7.0\CG_Laba_1.csproj.AssemblyReference.cache
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\obj\Debug\net7.0\CG_Laba_1.GeneratedMSBuildEditorConfig.editorconfig
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\obj\Debug\net7.0\CG_Laba_1.AssemblyInfoInputs.cache
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\obj\Debug\net7.0\CG_Laba_1.AssemblyInfo.cs
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\obj\Debug\net7.0\CG_Laba_1.csproj.CoreCompileInputs.cache
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\bin\Debug\net7.0\CG_Laba_1.exe
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\bin\Debug\net7.0\CG_Laba_1.deps.json
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\bin\Debug\net7.0\CG_Laba_1.runtimeconfig.json
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\bin\Debug\net7.0\CG_Laba_1.dll
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\bin\Debug\net7.0\CG_Laba_1.pdb
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\obj\Debug\net7.0\CG_Laba_1.dll
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\obj\Debug\net7.0\refint\CG_Laba_1.dll
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\obj\Debug\net7.0\CG_Laba_1.pdb
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\obj\Debug\net7.0\CG_Laba_1.genruntimeconfig.cache
+D:\Код\Численные методы лабы\CG_Laba_1\CG_Laba_1\obj\Debug\net7.0\ref\CG_Laba_1.dll

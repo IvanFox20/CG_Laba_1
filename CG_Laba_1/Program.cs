@@ -29,9 +29,26 @@ class Program
         List<Tuple<double, double>> intersectionPoints = CirlceIntersection(2, 2, 5, -1, -2, 8);
         foreach (var point in intersectionPoints)
         {
-            Console.WriteLine(point.Item1 + " " + point.Item2);
+            int i = 1;
+            Console.WriteLine($"P{i}(" + point.Item1 + "," + point.Item2 + ")");
+            i++;
         }
-        
+        Console.WriteLine();
+        List<Tuple<double, double>> intersectionPoint = CirlceIntersection(0, 0, 1, 2, 0, 1); // Одна точка
+        foreach (var point in intersectionPoint)
+        {
+            int i = 1;
+            Console.WriteLine($"P{i}(" + point.Item1 + "," + point.Item2 + ")");
+            i++;
+        }
+        Console.WriteLine();
+        List<Tuple<double, double>> nonIntersection = CirlceIntersection(0, 0, 8, 0, 0, 5); // точек пересечения нет, в список пустой
+        foreach (var point in nonIntersection)
+        {
+            int i = 1;
+            Console.WriteLine($"P{i}(" + point.Item1 + "," + point.Item2 + ")");
+            i++;
+        }
     }
 
     static string LineEquation(double x1, double y1, double x2, double y2) // Задание 1
@@ -101,7 +118,7 @@ class Program
         {
             ans.Add(new Tuple<double, double>(p0x,p0y));
         }
-        else if (d < radiusSum)
+        else if (d < radiusSum && Math.Abs(r1-r2) < d)
         {
             double p3x = Math.Round(p0x + h * (y2 - y1) / d,8);
             double p3y = Math.Round(p0y - h * (x2 - x1) / d,8);

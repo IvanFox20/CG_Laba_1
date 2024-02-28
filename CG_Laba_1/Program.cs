@@ -14,11 +14,14 @@ class Program
         string straightAngle = AngleType(1, 1, 0, 0, 0.5, -0.5);
         string acuteAngle = AngleType(1, 1, 0, 0, 1, 0);
         string obtuseAngle = AngleType(1, 1, 0, 0, 0, -1);
+        string nonExistentAngle = AngleType(1, 0, 2, 0, 3, 0);
         Console.WriteLine(straightAngle);
         Console.WriteLine();
         Console.WriteLine(acuteAngle);
         Console.WriteLine();
         Console.WriteLine(obtuseAngle);
+        Console.WriteLine();
+        Console.WriteLine(nonExistentAngle);
         Console.WriteLine();
         string planeEquation = PlaneEquation(1, 0, 0, 0, 1, 0, 0, 0, 1);
         Console.WriteLine(planeEquation);
@@ -55,11 +58,15 @@ class Program
         return string.Format($"Точка C({x3};{y3}) {belonging} отрезку [A({x1};{y1}); B({x2};{y2})]");
     }
 
-    static string AngleType(double x1, double y1, double x2, double y2, double x3, double y3) //Задание 3
+    static string AngleType(double x1, double y1, double x2, double y2, double x3, double y3)
     {
         double ab = SegmentLength(x1, y1, x2, y2);
         double bc = SegmentLength(x2, y2, x3, y3);
         double ac = SegmentLength(x1, y1, x3, y3);
+        if (ab + bc <= ac || ab + ac <= bc || ac + bc <= ab)
+        {
+            return $"Треугольник с точками A({x1};{y1}) B({x2};{y2}) C({x3};{y3}) не существует";
+        }
         string angleType = Math.Abs(Math.Pow(ac, 2) - (Math.Pow(ab, 2) + Math.Pow(bc, 2))) < Double.Epsilon ? "прямой" :
             Math.Pow(ac, 2) < Math.Pow(ab, 2) + Math.Pow(bc, 2) ? "острый" : "тупой";
         return string.Format($"Угол образованный точками A({x1};{y1}) B({x2};{y2}) C({x3};{y3}) {angleType}");

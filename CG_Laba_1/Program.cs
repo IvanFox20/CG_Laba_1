@@ -5,7 +5,7 @@ class Program
     
     static void Main()
     {
-        string lineEquation = LineEquation(0, 0, 1, 1);
+        string lineEquation = LineEquation(1, 1, 1, 1);
         Console.WriteLine(lineEquation);
         Console.WriteLine();
         string pointBelong = PointBelong(0, 0, 2, 2, 0.15, 0.15);
@@ -23,7 +23,7 @@ class Program
         Console.WriteLine();
         Console.WriteLine(nonExistentAngle);
         Console.WriteLine();
-        string planeEquation = PlaneEquation(1, 0, 0, 0, 1, 0, 0, 0, 1);
+        string planeEquation = PlaneEquation(1, 1, 1, 2, 2, 2, 3, 3, 3);
         Console.WriteLine(planeEquation);
         Console.WriteLine();
         List<Tuple<double, double>> intersectionPoints = CirlceIntersection(2, 2, 5, -1, -2, 8);
@@ -49,17 +49,60 @@ class Program
             Console.WriteLine($"P{i}(" + point.Item1 + "," + point.Item2 + ")");
             i++;
         }
+        Console.WriteLine(nonIntersection.Count());
+
+        List<Tuple<double, double>> intersectionPoint1 = CirlceIntersection(0, 0, 5, 0, 0, 5);
+        foreach (var point in intersectionPoint1)
+        {
+            int i = 1;
+            Console.WriteLine($"P{i}(" + point.Item1 + "," + point.Item2 + ")");
+            i++;
+        }
+        Console.WriteLine("#1 count " + intersectionPoint1.Count());
+        Console.WriteLine();
+        List<Tuple<double, double>> intersectionPoint2 = CirlceIntersection(0, 0, 5, 0, 3, 2);
+        foreach (var point in intersectionPoint2)
+        {
+            int i = 1;
+            Console.WriteLine($"P{i}(" + point.Item1 + "," + point.Item2 + ")");
+            i++;
+        }
+        Console.WriteLine("#2 count " + intersectionPoint2.Count());
+        Console.WriteLine();
+        List<Tuple<double, double>> intersectionPoint3 = CirlceIntersection(0, 0, 5, 10, 0, 5);
+        foreach (var point in intersectionPoint3)
+        {
+            int i = 1;
+            Console.WriteLine($"P{i}(" + point.Item1 + "," + point.Item2 + ")");
+            i++;
+        }
+        Console.WriteLine("#3 count " + intersectionPoint3.Count());
+        Console.WriteLine();
+        List<Tuple<double, double>> intersectionPoint4 = CirlceIntersection(0, 0, 5, 10, 8, 10);
+        foreach (var point in intersectionPoint4)
+        {
+            int i = 1;
+            Console.WriteLine($"P{i}(" + point.Item1 + "," + point.Item2 + ")");
+            i++;
+        }
+        Console.WriteLine("#4  count" + intersectionPoint4.Count());
+        Console.WriteLine();
+
     }
 
     static string LineEquation(double x1, double y1, double x2, double y2) // Задание 1
     {
         double coefX = y2 - y1;
         double coefY = -(x2 - x1);
-        double freeTerm = -x1 * (y2-y1) + y1 * (x2-x1);
+        if (Math.Abs(x1 - x2) < Double.Epsilon && Math.Abs(y1 - y2) < Double.Epsilon)
+        {
+            coefX = 1;
+            coefY = 1;
+        }
+        double freeTerm = -x1 * (coefX) + y1 * -(coefY);
         string signY = coefY >= 0 ? "+" : "-";
-        string signFreeTerm = freeTerm >= 0 ? "+" : "-";
+        string signFreeTerm = freeTerm >= 0 ? "+" : "-";     
         return string.Format($"Общее уравнение прямой, заданной точками A({x1:F8};{y1:F8}), B({x2:F8};{y2:F8}):\n{coefX:F8}x {signY} {Math.Abs(coefY):F8}y {signFreeTerm} {Math.Abs(freeTerm):F8} = 0");
-        ;
     }
 
     static double SegmentLength(double x1, double y1, double x2, double y2)
@@ -75,7 +118,7 @@ class Program
         return string.Format($"Точка C({x3};{y3}) {belonging} отрезку [A({x1};{y1}); B({x2};{y2})]");
     }
 
-    static string AngleType(double x1, double y1, double x2, double y2, double x3, double y3)
+    static string AngleType(double x1, double y1, double x2, double y2, double x3, double y3) // Задание 3
     {
         double ab = SegmentLength(x1, y1, x2, y2);
         double bc = SegmentLength(x2, y2, x3, y3);
@@ -88,19 +131,32 @@ class Program
             Math.Pow(ac, 2) < Math.Pow(ab, 2) + Math.Pow(bc, 2) ? "острый" : "тупой";
         return string.Format($"Угол образованный точками A({x1};{y1}) B({x2};{y2}) C({x3};{y3}) {angleType}");
     }
-
+    
     static string PlaneEquation(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3) // Задание 4
-    { // Есть 3 фиксированные точки в пространстве, 1 переменная. Составляем 3 вектора A1A, A1A2, A1A3. //Смешанное произведение компланарных векторов = 0. С помощью определителя раскладываею в уравнение
+    { // Есть 3 фиксированные точки в пространстве, 1 переменная. Составляем 3 вектора A1A, A1A2, A1A3. //Смешанное произведение компланарных векторов = 0. С помощью определителя раскладываю в уравнение
         double coefX = (y2 - y1)*(z3 - z1) - (z2-z1)*(y3-y1);
         double coefY = -((x2-x1)*(z3-z1) - (z2-z1)*(x3-x1));
         double coefZ = (x2-x1)*(y3-y1) - (y2-y1)*(x3-x1);
-        double freeTerm = -x1 * coefX + -y1 * coefY + -z1 * coefZ;
+        int i = 0;
+        while (true)
+        {
+            if (coefX != 0 || coefY != 0 || coefZ != 0)
+            {
+                break;
+            }
+            i++;
+            double newX3 = x1 + i;
+            coefX = (y2 - y1)*(z3 - z1) - (z2-z1)*(y3-y1);
+            coefY = -((x2-x1)*(z3-z1) - (z2-z1)*(newX3-x1));
+            coefZ = (x2-x1)*(y3-y1) - (y2-y1)*(newX3-x1);
+        }
+        double freeTerm = -(coefX * x1 + coefY * y1 + coefZ * z1);
         string signY = coefY >= 0 ? "+" : "-";
         string signZ = coefZ >= 0 ? "+" : "-";
         string signFreeTerm = freeTerm >= 0 ? "+" : "-";
-        return string.Format($"Общее уравнение плоскости, заданной точками A({x1};{y1};{z1}), B({x2};{y2};{z2}), C({x3};{y3};{z3}):\n" +
-                             $"{coefX:F8}x {signY} {Math.Abs(coefY):F8}y {signZ} {Math.Abs(coefZ):F8}z {signFreeTerm} {Math.Abs(freeTerm):F8} = 0");
-
+        return string.Format(
+            $"Общее уравнение плоскости, заданной точками A({x1};{y1};{z1}), B({x2};{y2};{z2}), C({x3};{y3};{z3}):\n" +
+            $"{coefX:F8}x {signY} {Math.Abs(coefY):F8}y {signZ} {Math.Abs(coefZ):F8}z {signFreeTerm} {Math.Abs(freeTerm):F8} = 0");
     }
 
     static List<Tuple<double, double>> CirlceIntersection(double x1, double y1, double r1, double x2, double y2, double r2) // Задание 5
@@ -114,6 +170,10 @@ class Program
         h = Math.Sqrt(Math.Pow(r1, 2) - Math.Pow(a, 2));
         double p0x = Math.Round(x1 + a * (x2 - x1) / d,2);
         double p0y = Math.Round(y1 + a * (y2 - y1) / d,2);
+        if(x1 == x2 && y1 == y2 && r1 == r2)
+        {
+            return ans;
+        }
         if (Math.Abs(d - radiusSum) < Double.Epsilon) // Если равны, то окружности касаются в одной точке (
         {
             ans.Add(new Tuple<double, double>(p0x,p0y));
